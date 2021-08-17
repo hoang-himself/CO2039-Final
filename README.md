@@ -1,2 +1,3 @@
-# CO2039-Final
-Finals report of CO2039
+# CO2039 Finals
+
+Report for CO2039 finals

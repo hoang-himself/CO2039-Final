@@ -1,0 +1,132 @@
+\documentclass[a4paper]{article}
+
+% Global layout
+\usepackage{fancyhdr, graphicx, hyperref, indentfirst, lastpage, setspace}
+\usepackage[margin=40mm]{geometry}
+
+% Encoding
+\usepackage[utf8]{vntex, inputenc} % vntex first to avoid Vietnamese auto-captions
+\usepackage{amsmath, amssymb, gensymb}
+
+% Better table
+\usepackage{array, booktabs, multicol, multirow, siunitx}
+
+% Code space
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{minted} % needs --shell-escape flag and Pygments
+
+% Graphics
+\usepackage{caption, float}
+
+% Page setup
+% \allowdisplaybreaks{} % to have page breaks inside align* environment
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=red,colorlinks=true}
+\usemintedstyle{emacs}
+\numberwithin{equation}{section}
+% \renewcommand{\arraystretch}{1.2} % space between table rows
+
+% Global style setup
+\makeatletter % change font size for not having underfull hbox
+\renewcommand\Huge{\@setfontsize\Huge{22pt}{18}}
+\makeatother
+
+\AtBeginDocument{\renewcommand*\contentsname{Contents}}
+\AtBeginDocument{\renewcommand*\refname{References}}
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[L]{
+  \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
+    \end{picture}
+    \begin{tabular}{l}
+      \textbf{\bf \ttfamily University of Technology, Ho Chi Minh City}\\
+      \textbf{\bf \ttfamily Faculty of Computer Science and Engineering}
+    \end{tabular}
+  \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\scriptsize \ttfamily Report for Advanced Programming --- Academic year 2020--2021}
+\fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+% \everymath{\color{blue}}
+
+\newcommand*\mean[1]{\bar{#1}}
+
+\begin{document}
+
+\begin{titlepage}
+  \begin{center}
+    VIETNAM NATIONAL UNIVERSITY, HO CHI MINH CITY \\
+    UNIVERSITY OF TECHNOLOGY \\
+    FACULTY OF COMPUTER SCIENCE AND ENGINEERING
+  \end{center}
+
+  \vspace{1cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{hcmut.png}
+  \end{figure}
+
+  \vspace{1cm}
+
+  \begin{center}
+    \begin{tabular}{c}
+      \textbf{\Large Advanced Programming (CO2039)}             \\
+      {}                                                        \\
+      \midrule                                                  \\
+      \textbf{\Large Report (Semester 202, Duration: 01 weeks)} \\
+      {}                                                        \\
+      \textbf{\Huge Making Pizza}                               \\
+      {}                                                        \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+
+  \vspace{3cm}
+
+  \begin{table}[h]
+    \begin{tabular}{rl}
+      \hspace{1cm} Advisor:      & Mr.\ Lê Lam Sơn \\
+                                 &                 \\
+      \hspace{1cm} Student Name: & Nguyễn Hoàng    \\
+      \hspace{1cm} Student ID\@:   & 1952255         \\
+    \end{tabular}
+  \end{table}
+
+  \begin{center}
+    {\footnotesize HO CHI MINH CITY, AUGUST 2021}
+  \end{center}
+\end{titlepage}
+
+
+%\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Hello World}
+\mintinline{C}{main()} prints ``Hello, World!'' to the console.
+\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]
+  \begin{minted}[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{C}
+int main(int argc, char **argv)
+{
+  std::cout << "Hello, World!" << std::endl;
+  return 0;
+}
+  \end{minted}
+\end{mdframed}
+
+\end{document}
