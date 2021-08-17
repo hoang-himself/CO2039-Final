@@ -15,7 +15,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tikz}
 \usepackage[framemethod=tikz]{mdframed}
-\usepackage{minted} % needs --shell-escape flag and Pygments
+\usepackage{minted, verbatim} % needs --shell-escape flag and Pygments
 
 % Graphics
 \usepackage{caption, float}
@@ -62,6 +62,24 @@
 % \everymath{\color{blue}}
 
 \newcommand*\mean[1]{\bar{#1}}
+\newenvironment{code}[1]
+{\VerbatimEnvironment%
+  \begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]%
+    \begin{minted}[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{#1}%
+}
+{
+    \end{minted}%
+  \end{mdframed}%
+}
+\newenvironment{console}
+{\VerbatimEnvironment%
+  \begin{mdframed}[leftline=false,rightline=false,backgroundcolor=teal!10,nobreak=false]%
+    \begin{minted}[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{text}%
+}
+{
+    \end{minted}%
+  \end{mdframed}%
+}
 
 \begin{document}
 
@@ -88,7 +106,7 @@
       \midrule                                                  \\
       \textbf{\Large Report (Semester 202, Duration: 01 weeks)} \\
       {}                                                        \\
-      \textbf{\Huge Making Pizza}                               \\
+      \textbf{\Huge OOP vs FP}                               \\
       {}                                                        \\
       \bottomrule
     \end{tabular}
@@ -101,7 +119,7 @@
       \hspace{1cm} Advisor:      & Mr.\ Lê Lam Sơn \\
                                  &                 \\
       \hspace{1cm} Student Name: & Nguyễn Hoàng    \\
-      \hspace{1cm} Student ID\@:   & 1952255         \\
+      \hspace{1cm} Student ID\@: & 1952255         \\
     \end{tabular}
   \end{table}
 
@@ -117,16 +135,116 @@
 \tableofcontents
 \newpage
 
-\section{Hello World}
-\mintinline{C}{main()} prints ``Hello, World!'' to the console.
-\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]
-  \begin{minted}[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{C}
-int main(int argc, char **argv)
-{
-  std::cout << "Hello, World!" << std::endl;
-  return 0;
-}
-  \end{minted}
-\end{mdframed}
+\section{OOP and FP in baking a pizza}
+OOP makes code understandable by encapsulating moving parts.
+FP makes code understandable by minimizing moving parts.
+
+What? Alright that sounds a bit rough, let's rephrase this a bit.
+OOP aims to model the world in self-contained entities, and affects change by modifying the state of itself or other entities.
+FP on the other hand aims to not modify the original data, but rather creates new data given some existing data.
+
+To demonstrate this, we will try to make a pizza.
+With OOP, a big box or object with all the materials to create a pizza is available, and the helper methods will slowly transform them into a complete pizza.
+FP will take a different approach, as materials are given to each stage/step/activity in order to be used in the next activity until the final product is achieved.
+
+We will try to describe this pizza making progress programmatically using C++ and Haskell.
+
+Let's start with a complete C++ program
+\begin{code}{C}
+  #include <iostream>
+
+  class Pastry
+  {
+  public:
+    // Skeleton of the process
+    void bake_me_baby()
+    {
+      prepare_dough();
+      preheat_oven();
+      add_sauce();
+      add_toppings();
+      bake();
+    }
+
+  protected:
+    // Subclasses have to implement these methods
+    virtual void prepare_dough() = 0;
+    virtual void add_sauce() = 0;
+    virtual void add_toppings() = 0;
+    virtual void bake() = 0;
+
+    // Subclasses can override the methods or leave them be
+    virtual void preheat_oven()
+    {
+      std::cout << "Preheating the oven" << std::endl;
+    }
+    virtual void cut()
+    {
+      std::cout << "Cutting" << std::endl;
+    }
+  };
+
+  class Pizza : public Pastry
+  {
+  protected:
+    /**
+     * 0: raw
+     * 1: dough prepared
+     * 2: sauce added
+     * 3: toppings added
+     * 4: baked
+     **/
+    int state = 0;
+
+  protected:
+    void prepare_dough()
+    {
+      std::cout << "Preparing the dough" << std::endl;
+      state = 1;
+    }
+    void add_sauce()
+    {
+      std::cout << "Adding the sauce" << std::endl;
+      state = 2;
+    }
+    void add_toppings()
+    {
+      std::cout << "Adding toppings" << std::endl;
+      state = 3;
+    }
+    void bake()
+    {
+      std::cout << "Baking" << std::endl;
+      state = 4;
+    }
+  };
+
+  int main(int argc, char **argv)
+  {
+    Pizza *pizza = new Pizza();
+    pizza->bake_me_baby();
+    delete pizza;
+    return 0;
+  }
+\end{code}
+
+Output of this program
+\begin{console}
+Preparing the dough
+Preheating the oven
+Adding the sauce
+Adding toppings
+Baking
+\end{console}
+
+One more time, but with Haskell
+\begin{code}{Haskell}
+  print "Hello, World!"
+\end{code}
+
+Output of this program
+\begin{console}
+Hello, World!
+\end{console}
 
 \end{document}
