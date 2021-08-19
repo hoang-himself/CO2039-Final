@@ -129,11 +129,11 @@
 \end{titlepage}
 
 
-%\thispagestyle{empty}
+% \thispagestyle{empty}
 
-\newpage
-\tableofcontents
-\newpage
+% \newpage
+% \tableofcontents
+% \newpage
 
 \section{OOP and FP in baking a pizza}
 OOP makes code understandable by encapsulating moving parts.
@@ -151,100 +151,133 @@ We will try to describe this pizza making progress programmatically using C++ an
 
 Let's start with a complete C++ program
 \begin{code}{C}
-  #include <iostream>
+#include <iostream>
+#include <string>
 
-  class Pastry
+class Pastry
+{
+public:
+  virtual void bake_me_baby()
   {
-  public:
-    // Skeleton of the process
-    void bake_me_baby()
-    {
-      prepare_dough();
-      preheat_oven();
-      add_sauce();
-      add_toppings();
-      bake();
-    }
-
-  protected:
-    // Subclasses have to implement these methods
-    virtual void prepare_dough() = 0;
-    virtual void add_sauce() = 0;
-    virtual void add_toppings() = 0;
-    virtual void bake() = 0;
-
-    // Subclasses can override the methods or leave them be
-    virtual void preheat_oven()
-    {
-      std::cout << "Preheating the oven" << std::endl;
-    }
-    virtual void cut()
-    {
-      std::cout << "Cutting" << std::endl;
-    }
-  };
-
-  class Pizza : public Pastry
-  {
-  protected:
-    /**
-     * 0: raw
-     * 1: dough prepared
-     * 2: sauce added
-     * 3: toppings added
-     * 4: baked
-     **/
-    int state = 0;
-
-  protected:
-    void prepare_dough()
-    {
-      std::cout << "Preparing the dough" << std::endl;
-      state = 1;
-    }
-    void add_sauce()
-    {
-      std::cout << "Adding the sauce" << std::endl;
-      state = 2;
-    }
-    void add_toppings()
-    {
-      std::cout << "Adding toppings" << std::endl;
-      state = 3;
-    }
-    void bake()
-    {
-      std::cout << "Baking" << std::endl;
-      state = 4;
-    }
-  };
-
-  int main(int argc, char **argv)
-  {
-    Pizza *pizza = new Pizza();
-    pizza->bake_me_baby();
-    delete pizza;
-    return 0;
+    prepare_dough();
+    add_sauce();
+    add_toppings();
+    bake();
   }
+
+protected:
+  virtual void prepare_dough() = 0;
+  virtual void add_sauce() = 0;
+  virtual void add_toppings() = 0;
+  virtual void bake() = 0;
+};
+
+class Pizza : public Pastry
+{
+protected:
+  int time = 0;
+  std::string state = "Raw";
+
+protected:
+  void prepare_dough()
+  {
+    time = 1;
+    state = "Prepared dough";
+  }
+  void add_sauce()
+  {
+    time = 2;
+    state = "Added sauce";
+  }
+  void add_toppings()
+  {
+    time = 3;
+    state = "Added toppings";
+  }
+  void bake()
+  {
+    time = 4;
+    state = "Baked the hell out of this";
+  }
+
+public:
+  void bake_me_baby()
+  {
+    prepare_dough();
+    std::cout << state << std::endl;
+    add_sauce();
+    std::cout << state << std::endl;
+    add_toppings();
+    std::cout << state << std::endl;
+    bake();
+    std::cout << state << std::endl;
+  }
+};
+
+int main(int argc, char **argv)
+{
+  Pastry *pizza = new Pizza();
+  pizza->bake_me_baby();
+  delete pizza;
+  return 0;
+}
 \end{code}
 
 Output of this program
 \begin{console}
-Preparing the dough
-Preheating the oven
-Adding the sauce
-Adding toppings
-Baking
+>>> g++ -g main.cpp -o main && ./main
+1 Prepared dough
+2 Added sauce
+3 Added toppings
+4 Baked the hell out of this
 \end{console}
 
-One more time, but with Haskell
+Nice! Let's do this again, but with Haskell
 \begin{code}{Haskell}
-  print "Hello, World!"
+module Main (main) where
+
+data Pizza = Pizza {time :: Int, state :: String} deriving (Show)
+
+prepareDough :: Pizza -> Pizza
+prepareDough pizza = pizza {time = 1, state = "Prepared dough"}
+
+addSauce :: Pizza -> Pizza
+addSauce pizza = pizza {time = 2, state = "Added sauce"}
+
+addToppings :: Pizza -> Pizza
+addToppings pizza = pizza {time = 3, state = "Added toppings"}
+
+bake :: Pizza -> Pizza
+bake pizza = pizza {time = 4, state = "Baked the hell out of this"}
+
+bakeMeBaby :: Pizza -> IO ()
+bakeMeBaby pizza = do
+  let pizza1 = prepareDough pizza
+  print pizza1
+  let pizza2 = addSauce pizza1
+  print pizza2
+  let pizza3 = addToppings pizza2
+  print pizza3
+  let pizza4 = bake pizza3
+  print pizza4
+
+main :: IO ()
+main = do
+  let pizza = Pizza 0 "Raw"
+  bakeMeBaby pizza
 \end{code}
 
 Output of this program
 \begin{console}
-Hello, World!
+>>> ghc -g main.hs -o main && ./main
+[1 of 1] Compiling Main             ( main.hs, main.o )
+Linking main ...
+Pizza {time = 1, state = "Prepared dough"}
+Pizza {time = 2, state = "Added sauce"}
+Pizza {time = 3, state = "Added toppings"}
+Pizza {time = 4, state = "Baked the hell out of this"}
 \end{console}
+
+\section{Comparing the pizza-making methods}
 
 \end{document}

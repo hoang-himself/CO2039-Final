@@ -1,82 +1,70 @@
 #include <iostream>
+#include <string>
 
 class Pastry
 {
 public:
-  // Skeleton of the process
-  void bake_me_baby()
+  virtual void bake_me_baby()
   {
     prepare_dough();
-    preheat_oven();
     add_sauce();
     add_toppings();
     bake();
   }
 
 protected:
-  // Subclasses have to implement these methods
   virtual void prepare_dough() = 0;
   virtual void add_sauce() = 0;
   virtual void add_toppings() = 0;
   virtual void bake() = 0;
-
-  // Subclasses can override the methods or leave them be
-  virtual void preheat_oven()
-  {
-    std::cout << "Preheating the oven" << std::endl;
-  }
-  virtual void cut()
-  {
-    std::cout << "Cutting" << std::endl;
-  }
 };
 
 class Pizza : public Pastry
 {
 protected:
-  /**
-   * 0: raw
-   * 1: dough prepared
-   * 2: sauce added
-   * 3: toppings added
-   * 4: baked
-   **/
-  int state = 0;
+  int time = 0;
+  std::string state = "Raw";
 
 protected:
   void prepare_dough()
   {
-    std::cout << "Preparing the dough" << std::endl;
-    state = 1;
+    time = 1;
+    state = "Prepared dough";
   }
   void add_sauce()
   {
-    std::cout << "Adding the sauce" << std::endl;
-    state = 2;
+    time = 2;
+    state = "Added sauce";
   }
   void add_toppings()
   {
-    std::cout << "Adding toppings" << std::endl;
-    state = 3;
+    time = 3;
+    state = "Added toppings";
   }
   void bake()
   {
-    std::cout << "Baking" << std::endl;
-    state = 4;
+    time = 4;
+    state = "Baked the hell out of this";
+  }
+
+public:
+  void bake_me_baby()
+  {
+    prepare_dough();
+    std::cout << time << " " << state << std::endl;
+    add_sauce();
+    std::cout << time << " " << state << std::endl;
+    add_toppings();
+    std::cout << time << " " << state << std::endl;
+    bake();
+    std::cout << time << " " << state << std::endl;
   }
 };
 
 int main(int argc, char **argv)
 {
-  Pizza *pizza = new Pizza();
+  Pastry *pizza = new Pizza();
   pizza->bake_me_baby();
   delete pizza;
   return 0;
-  /*
-  Preparing the dough
-  Preheating the oven
-  Adding the sauce
-  Adding toppings
-  Baking
-  */
 }
