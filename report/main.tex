@@ -181,21 +181,29 @@ protected:
 protected:
   void prepare_dough()
   {
+    if (time != 0)
+      return;
     time = 1;
     state = "Prepared dough";
   }
   void add_sauce()
   {
+    if (time != 1)
+      return;
     time = 2;
     state = "Added sauce";
   }
   void add_toppings()
   {
+    if (time != 2)
+      return;
     time = 3;
     state = "Added toppings";
   }
   void bake()
   {
+    if (time != 3)
+      return;
     time = 4;
     state = "Baked the hell out of this";
   }
@@ -239,16 +247,24 @@ module Main (main) where
 data Pizza = Pizza {time :: Int, state :: String} deriving (Show)
 
 prepareDough :: Pizza -> Pizza
-prepareDough pizza = pizza {time = 1, state = "Prepared dough"}
+prepareDough pizza@(Pizza t _)
+  | t /= 0 = pizza
+  | otherwise = pizza {time = 1, state = "Prepared dough"}
 
 addSauce :: Pizza -> Pizza
-addSauce pizza = pizza {time = 2, state = "Added sauce"}
+addSauce pizza@(Pizza t _)
+  | t /= 1 = pizza
+  | otherwise = pizza {time = 2, state = "Added sauce"}
 
 addToppings :: Pizza -> Pizza
-addToppings pizza = pizza {time = 3, state = "Added toppings"}
+addToppings pizza@(Pizza t _)
+  | t /= 2 = pizza
+  | otherwise = pizza {time = 3, state = "Added toppings"}
 
 bake :: Pizza -> Pizza
-bake pizza = pizza {time = 4, state = "Baked the hell out of this"}
+bake pizza@(Pizza t _)
+  | t /= 3 = pizza
+  | otherwise = pizza {time = 4, state = "Baked the hell out of this"}
 
 bakeMeBaby :: Pizza -> IO ()
 bakeMeBaby pizza = do
@@ -279,6 +295,9 @@ Pizza {time = 4, state = "Baked the hell out of this"}
 \end{console}
 
 \section{Comparing the pizza-making methods}
+With the pizza making out of the way, there are definitely some things noticeable between the two approaches.
+Obviously, the procedure of the process does not change, but the way the materials or the pizza, otherwise known as the data, are handled and processed is different.
+Considering the context of this report, this is what I concluded
 
 \begin{center}
   \begin{tabular}{*{3}{l}}
@@ -290,5 +309,7 @@ Pizza {time = 4, state = "Baked the hell out of this"}
     \bottomrule
   \end{tabular}
 \end{center}
+
+\section*{Easter egg}
 
 \end{document}

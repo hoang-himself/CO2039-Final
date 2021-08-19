@@ -28,21 +28,29 @@ protected:
 protected:
   void prepare_dough()
   {
+    if (time != 0)
+      return;
     time = 1;
     state = "Prepared dough";
   }
   void add_sauce()
   {
+    if (time != 1)
+      return;
     time = 2;
     state = "Added sauce";
   }
   void add_toppings()
   {
+    if (time != 2)
+      return;
     time = 3;
     state = "Added toppings";
   }
   void bake()
   {
+    if (time != 3)
+      return;
     time = 4;
     state = "Baked the hell out of this";
   }

@@ -3,16 +3,24 @@ module Main (main) where
 data Pizza = Pizza {time :: Int, state :: String} deriving (Show)
 
 prepareDough :: Pizza -> Pizza
-prepareDough pizza = pizza {time = 1, state = "Prepared dough"}
+prepareDough pizza@(Pizza t _)
+  | t /= 0 = pizza
+  | otherwise = pizza {time = 1, state = "Prepared dough"}
 
 addSauce :: Pizza -> Pizza
-addSauce pizza = pizza {time = 2, state = "Added sauce"}
+addSauce pizza@(Pizza t _)
+  | t /= 1 = pizza
+  | otherwise = pizza {time = 2, state = "Added sauce"}
 
 addToppings :: Pizza -> Pizza
-addToppings pizza = pizza {time = 3, state = "Added toppings"}
+addToppings pizza@(Pizza t _)
+  | t /= 2 = pizza
+  | otherwise = pizza {time = 3, state = "Added toppings"}
 
 bake :: Pizza -> Pizza
-bake pizza = pizza {time = 4, state = "Baked the hell out of this"}
+bake pizza@(Pizza t _)
+  | t /= 3 = pizza
+  | otherwise = pizza {time = 4, state = "Baked the hell out of this"}
 
 bakeMeBaby :: Pizza -> IO ()
 bakeMeBaby pizza = do
