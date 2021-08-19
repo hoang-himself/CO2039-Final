@@ -1,0 +1,4 @@
+Pizza {time = 1, state = "Prepared dough"}
+Pizza {time = 2, state = "Added sauce"}
+Pizza {time = 3, state = "Added toppings"}
+Pizza {time = 4, state = "Baked the hell out of this"}
