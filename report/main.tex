@@ -136,8 +136,8 @@ OOP aims to model the world in self-contained entities, and affects change by mo
 FP on the other hand aims to not modify the original data, but rather creates new data given some existing data.
 
 To demonstrate this, we will try to make a pizza.
-With OOP, a big box or object with all the materials to create a pizza is available, and the helper methods will slowly transform them into a complete pizza.
-FP will take a different approach, as materials are given to each stage/step/activity in order to be used in the next activity until the final product is achieved.
+With OOP, a big box or object with all the materials steps to make a pizza is available.
+FP takes a different approach, as it only contains the materials are. It doesn't care what you do with these materials as long as it is all what you need.
 
 We will try to describe this pizza making progress programmatically using C++ and Haskell.
 
@@ -163,8 +163,10 @@ Output of this program
 
 \newpage
 \section{Conclusion}
-With the pizza making out of the way, there are definitely some things noticeable between the two approaches.
-Obviously, the procedure of the process does not change, but the way the materials or the pizza, otherwise known as the data, are handled and processed is different.
+With the pizza making out of the way, the two approaches feels like one.
+Obviously, the process must be the same, but the way the pizza, or the data, here is treated differently.
+
+With that said, here is an overkill comparison table.
 
 \begin{center}
   \begin{tabularx}{\textwidth}{l*{2}{X}}
@@ -190,8 +192,8 @@ Congratulations! You have actually read my report.
 This section serves no more than empty space that I type when I can't get some thing out of my mind.
 
 Yes, I am aware that this section creates the feeling that I am not taking this report seriously.
-Yes, I am aware that the comparison table is overkill and not very related to the pizza problem, but FP is not something anyone can learn in 14 weeks, not to add that I had to learn it myself during the course.
-That means the teacher did not help much.
+Yes, I am aware that the comparison table is not very related to the pizza problem, but FP is not something anyone can learn in 14 weeks, not to add that I had to learn it myself during the course.
+The teacher was not very enthusiastic when it comes to FP either.
 
 During the one-week duration to write this report, I was told that someone posted this report \href{https://www.chegg.com/homework-help/questions-and-answers/wikipedia-object-oriented-programming-template-method-one-behavioral-design-patterns-ident-q83199850}{on Chegg}.
 Congratulations to whoever created this assignment, I guess.
@@ -212,5 +214,7 @@ if __name__ == "__main__":
     endl = '\n'
     cout << "Hello" << ", " << "World!" << endl
 \end{code}
+
+Thanks, and have fun.
 
 \end{document}
