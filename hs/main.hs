@@ -1,28 +1,28 @@
 module Main (main) where
 
-data Pizza = Pizza {time :: Int, state :: String} deriving (Show)
+data Pastry = Pizza {time :: Int, state :: String} deriving (Show)
 
-prepareDough :: Pizza -> Pizza
+prepareDough :: Pastry -> Pastry
 prepareDough pizza@(Pizza t _)
   | t /= 0 = pizza
   | otherwise = pizza {time = 1, state = "Prepared dough"}
 
-addSauce :: Pizza -> Pizza
+addSauce :: Pastry -> Pastry
 addSauce pizza@(Pizza t _)
   | t /= 1 = pizza
   | otherwise = pizza {time = 2, state = "Added sauce"}
 
-addToppings :: Pizza -> Pizza
+addToppings :: Pastry -> Pastry
 addToppings pizza@(Pizza t _)
   | t /= 2 = pizza
   | otherwise = pizza {time = 3, state = "Added toppings"}
 
-bake :: Pizza -> Pizza
+bake :: Pastry -> Pastry
 bake pizza@(Pizza t _)
   | t /= 3 = pizza
   | otherwise = pizza {time = 4, state = "Baked the hell out of this"}
 
-bakeMeBaby :: Pizza -> IO ()
+bakeMeBaby :: Pastry -> IO ()
 bakeMeBaby pizza = do
   let pizza1 = prepareDough pizza
   print pizza1
