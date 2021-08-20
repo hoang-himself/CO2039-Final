@@ -5,7 +5,8 @@
 \usepackage[margin=40mm]{geometry}
 
 % Encoding
-\usepackage[utf8]{vntex, inputenc} % vntex first to avoid Vietnamese auto-captions
+\usepackage[utf8]{vntex, inputenc}
+\usepackage[english]{babel}
 \usepackage{amsmath, amssymb, gensymb}
 
 % Better table
@@ -168,22 +169,48 @@ Obviously, the procedure of the process does not change, but the way the materia
 \begin{center}
   \begin{tabularx}{\textwidth}{l*{2}{X}}
     \toprule
-         & OOP                                                                                                                                                                                                    & FP                                                                                                \\
+         & OOP                                                                                                                                                                                                    & FP                                                                                                                                                             \\
     \cmidrule(lr){2-3}
-    Pros & OOP objects contains both the data (attributes) and things that it can do (methods)                                                                                                                    & FP decouples the data from the functions                                                          \\
-         & Any changes that are applied is reflected on the object itself                                                                                                                                         & Data in FP is not intended to change, if it does, new data is just created                        \\
-         & OOP organize everything into hierarchies of abstract objects                                                                                                                                           & FP is natural for the human brain, as in, our thought process is centered around ``doing'' things \\
+    Pros & OOP objects contains both the data (attributes) and things that it can do (methods)                                                                                                                    & FP decouples the data from the functions                                                                                                                       \\
+         & Any changes that are applied is reflected on the object itself                                                                                                                                         & Data in FP is not intended to change, if it does, new data is just created                                                                                     \\
+         & OOP organize everything into hierarchies of abstract objects                                                                                                                                           & FP is natural for the human brain, as in, our thought process is centered around ``doing'' things                                                              \\
     \midrule
-    Cons & OOP objects are abstract and potentially complex, wasting a lot of time in abstractions and design patterns instead of solving the problem                                                             &                                                                                                   \\
-         & OOP encourages sharing of mutable state and introduces additional complexity with its numerous design pattern, thus making common development practices, like refactoring and testing, needlessly hard &                                                                                                   \\
-         & Concurrency is basically impossible because the output of a method depends on the state of the object, unless we make the object immutable, which is FP                                                &                                                                                                   \\
+    Cons & OOP objects are abstract and potentially complex, wasting a lot of time in abstractions and design patterns instead of solving the problem                                                             & A good FP program requires strict state and I/O management, which requires brain-breaking abstraction inversion                                                \\
+         & OOP encourages sharing of mutable state and introduces additional complexity with its numerous design pattern, thus making common development practices, like refactoring and testing, needlessly hard & FP data objects are immutable, meaning that it is bad for simulating anything that involves objects that change like GUI                                       \\
+         & Concurrency is basically impossible because the output of a method depends on the state of the object, unless we make the object immutable, which is FP                                                & FP has a strong mathematical foundation, meaning that it has a high barrier to entry, requiring you to learn concepts from abstract algebra to category theory \\
     \bottomrule
   \end{tabularx}
 \end{center}
 
+You can find the full source code of this report on \href{https://github.com/Smithienious/CO2039-Final}{my GitHub repository}.
+
 \newpage
 \section*{Easter egg}
 Congratulations! You have actually read my report.
-This section serves no more than empty space that I type when I can't get problems out of my mind.
+This section serves no more than empty space that I type when I can't get some thing out of my mind.
+
+Yes, I am aware that this section creates the feeling that I am not taking this report seriously.
+Yes, I am aware that the comparison table is overkill and not very related to the pizza problem, but FP is not something anyone can learn in 14 weeks, not to add that I had to learn it myself during the course.
+That means the teacher did not help much.
+
+During the one-week duration to write this report, I was told that someone posted this report \href{https://www.chegg.com/homework-help/questions-and-answers/wikipedia-object-oriented-programming-template-method-one-behavioral-design-patterns-ident-q83199850}{on Chegg}.
+Congratulations to whoever created this assignment, I guess.
+
+With that having been said, please enjoy this little abomination I created in Python.
+\begin{code}{Python}
+class iostream:
+    def __lshift__(self, other):
+        print(other, end='')
+        return self
+
+    def __repr__(self):
+        return ''
+
+
+if __name__ == "__main__":
+    cout = iostream()
+    endl = '\n'
+    cout << "Hello" << ", " << "World!" << endl
+\end{code}
 
 \end{document}
