@@ -21,11 +21,11 @@
 \usepackage{caption, float}
 
 % Page setup
-% \allowdisplaybreaks{} % to have page breaks inside align* environment
+\allowdisplaybreaks{} % to have page breaks inside align* environment
 \hypersetup{urlcolor=blue,linkcolor=black,citecolor=red,colorlinks=true}
 \usemintedstyle{emacs}
 \numberwithin{equation}{section}
-% \renewcommand{\arraystretch}{1.2} % space between table rows
+\renewcommand{\arraystretch}{1.2} % space between table rows
 
 % Global style setup
 \makeatletter % change font size for not having underfull hbox
@@ -66,15 +66,6 @@
 {\VerbatimEnvironment%
   \begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]%
     \begin{minted}[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{#1}%
-}
-{
-    \end{minted}%
-  \end{mdframed}%
-}
-\newenvironment{console}
-{\VerbatimEnvironment%
-  \begin{mdframed}[leftline=false,rightline=false,backgroundcolor=teal!10,nobreak=false]%
-    \begin{minted}[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{text}%
 }
 {
     \end{minted}%
@@ -150,47 +141,49 @@ FP will take a different approach, as materials are given to each stage/step/act
 We will try to describe this pizza making progress programmatically using C++ and Haskell.
 
 Let's start with a complete C++ program
-\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]%
+\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]
   \inputminted[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{C}{../cpp/main.cpp}
 \end{mdframed}
 
 Output of this program
-\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=teal!10,nobreak=false]%
-  \inputminted[linenos=true,breaksymbolleft=,obeytabs=true,tabsize=2]{text}{../cpp/main.txt}
+\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=teal!10,nobreak=true]
+  \inputminted[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{text}{../cpp/main.txt}
 \end{mdframed}
 
 Nice! Let's do this again, but with Haskell
-\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]%
+\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=magenta!10,nobreak=false]
   \inputminted[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{Haskell}{../hs/main.hs}
 \end{mdframed}
 
 Output of this program
-\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=teal!10,nobreak=false]%
-  \inputminted[linenos=true,breaksymbolleft=,obeytabs=true,tabsize=2]{text}{../hs/main.txt}
+\begin{mdframed}[leftline=false,rightline=false,backgroundcolor=teal!10,nobreak=true]
+  \inputminted[linenos=true,breaklines,breaksymbolleft=,obeytabs=true,tabsize=2]{text}{../hs/main.txt}
 \end{mdframed}
 
 \newpage
-\section{Comparing the pizza-making methods}
+\section{Conclusion}
 With the pizza making out of the way, there are definitely some things noticeable between the two approaches.
 Obviously, the procedure of the process does not change, but the way the materials or the pizza, otherwise known as the data, are handled and processed is different.
 
 \begin{center}
   \begin{tabularx}{\textwidth}{l*{2}{X}}
     \toprule
-         & OOP                                                                                                                                 & FP                                                                         \\
+         & OOP                                                                                                                                                                                                    & FP                                                                                                \\
     \cmidrule(lr){2-3}
-    Pros & OOP objects are self contained, meaning that an object has certain characteristics (attributes) and things that it can do (methods) & FP doesn't care about the data, but rather what it can do with the data    \\
-         & Any changes that are applied is reflected on the object itself                                                                      & Data in FP is not intended to change, if it does, new data is just created \\
-         &                                                                                                                                     &                                                                            \\
+    Pros & OOP objects contains both the data (attributes) and things that it can do (methods)                                                                                                                    & FP decouples the data from the functions                                                          \\
+         & Any changes that are applied is reflected on the object itself                                                                                                                                         & Data in FP is not intended to change, if it does, new data is just created                        \\
+         & OOP organize everything into hierarchies of abstract objects                                                                                                                                           & FP is natural for the human brain, as in, our thought process is centered around ``doing'' things \\
     \midrule
-    Cons &                                                                                                                                     &                                                                            \\
-         &                                                                                                                                     &                                                                            \\
-         &                                                                                                                                     &                                                                            \\
+    Cons & OOP objects are abstract and potentially complex, wasting a lot of time in abstractions and design patterns instead of solving the problem                                                             &                                                                                                   \\
+         & OOP encourages sharing of mutable state and introduces additional complexity with its numerous design pattern, thus making common development practices, like refactoring and testing, needlessly hard &                                                                                                   \\
+         & Concurrency is basically impossible because the output of a method depends on the state of the object, unless we make the object immutable, which is FP                                                &                                                                                                   \\
     \bottomrule
   \end{tabularx}
 \end{center}
 
 \newpage
 \section*{Easter egg}
+Congratulations! You have actually read my report.
+This section serves no more than empty space that I type when I can't get problems out of my mind.
 
 \end{document}
